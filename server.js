@@ -14,8 +14,11 @@ realTimeServer.on('connection', socket => {
 
   socket.on('SEND_MESSAGE', message => {
     console.log('socket event', 'SEND_MESSAGE');
-    socket.emit('RECEIVE_MESSAGE', 'You sent a message!');
-    realTimeServer.emit('RECEIVED_MESSAGE', {
+
+    // Send just to the person we received this from
+    // socket.emit('RECEIVE_MESSAGE', { message: 'You sent a message!' });
+
+    realTimeServer.emit('RECEIVE_MESSAGE', {
       ...message,
       id: ++id,
       timestamp: new Date(),
